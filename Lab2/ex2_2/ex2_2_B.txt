@@ -1,0 +1,12 @@
+b) Your first test will focus on the behavior of ProductFinderService#findProductDetails(id)
+This method takes a product id number and gets the product information from the Products API. For
+that, ProductFinderService uses an HTTP Client to invoke an HTTP GET method.
+Consider that:
+• the team has not yet decided on the HTTP Client to use;
+• each API call has a cost and the team wants to minimize costs at development time.
+• the main aspect to be tested is whether findProductDetails can instantiate well formed objects
+from the JSON obtained in the API response.
+
+How would mocking be used in this scenario?
+
+ - o httpClient foi mockado para evitar custos da chamada à API. Também foi retornado um json como exemplo localmente

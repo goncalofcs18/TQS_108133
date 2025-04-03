@@ -1,0 +1,8 @@
+Considering the previous point, can you think of a scenario where the TqsStack will fail despite the 
+high coverage level? To which extent can one rely on code coverage to assess quality of your code?
+
+Sim, é possível que a TqsStack falhe mesmo com 100% de cobertura uma vez que: 
+
+ - A cobertura mede quais as linhas ou ramos que foram executados, mas não garante que foram testados corretamente.
+
+ - p.e, um teste que chama stack.pop() mas não verifica o valor devolvido ou o estado interno da stack ainda conta para a cobertura.

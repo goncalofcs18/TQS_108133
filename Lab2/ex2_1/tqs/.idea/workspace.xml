@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0d3e7774-2704-460d-bcda-0116a60e8c6a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/src/main/java/lab1/lab1_1/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/src/main/java/lab1/lab1_1/TqsStack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_1/src/test/java/lab1/lab1_1/TqsStackTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/main/java/tqs/DemoMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/main/java/tqs/euromillions/CuponEuromillions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/main/java/tqs/euromillions/Dip.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/main/java/tqs/euromillions/EuromillionsDraw.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/main/java/tqs/overview.uml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/main/java/tqs/sets/BoundedSetOfNaturals.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/main/resources/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/test/java/tqs/euromillions/DipTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/test/java/tqs/euromillions/EuromillionsDrawTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab1/lab1_2/src/test/java/tqs/sets/BoundedSetOfNaturalsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/src/main/java/lab2_1/project/IStockMarketService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/src/main/java/lab2_1/project/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/src/main/java/lab2_1/project/Stock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/src/main/java/lab2_1/project/StocksPortofolio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab2/lab2_1/src/test/java/lab2_1/project/StocksPortofolioTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2v0CHDr9an9SaET6iEtQYiTeCcY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/gfcs/TQS",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0d3e7774-2704-460d-bcda-0116a60e8c6a" name="Changes" comment="" />
+      <created>1743272515562</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743272515562</updated>
+      <workItem from="1743272516709" duration="11000" />
+    </task>
+    <servers />
+  </component>
+</project>

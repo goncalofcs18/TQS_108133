@@ -1,0 +1,5 @@
+- mvn test: Executa apenas os testes unitários (que têm Test no fim)
+- mvn package: Compila o projeto e executa testes unitários. Se testes falharem, build falha
+- mvn package -DskipTests=true: Compila o projeto e ignora os testes
+- mvn failsafe:integration-test: Executa apenas os testes de integração (que têm IT.java) e não compila.
+- mvn install:  Compila o projeto e corre testes mas não executa testes de integração automaticamente

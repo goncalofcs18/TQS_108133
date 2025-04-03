@@ -1,0 +1,9 @@
+Vantagens:
+ - Deteta erros de configuração ou runtime que não aparecem com bases de dados em memória.
+ - Os testes interagem com um sistema de base de dados real, simulando assim melhor o ambiente de produção.
+
+Desvantagens:
+
+- Bases de dados reais são mais lentas a iniciar
+- Requer setup de ficheiros de configuração e limpeza entre testes.
+- Bases de dados partilhadas podem causar conflitos entre testes e exigir isolamento adicional
