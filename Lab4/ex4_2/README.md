@@ -1,0 +1,1 @@
+resoluçao do ex 4.2 d encontra-se no projeto maven ex4_1 (BlazeDemoTest.java)
