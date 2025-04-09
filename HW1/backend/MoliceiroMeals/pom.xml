@@ -33,7 +33,7 @@
 		<rest-assured.version>5.4.0</rest-assured.version>
 		<testcontainers.version>1.19.7</testcontainers.version>
 		<junit-platform.version>1.10.2</junit-platform.version>
-		<sonar.organization>TQS_108133</sonar.organization>
+		<sonar.organization>tqs-108133</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
