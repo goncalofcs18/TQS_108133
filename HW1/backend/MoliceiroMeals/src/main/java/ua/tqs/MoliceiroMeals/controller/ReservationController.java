@@ -24,25 +24,49 @@ public class ReservationController {
     public ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationRequest request) {
         Reservation reservation = reservationService.createReservation(
                 request.getName(), request.getStudentNumber(), request.getMealId());
-        return ResponseEntity.ok(new ReservationDTO(reservation.getToken()));
+        
+        ReservationDTO dto = new ReservationDTO();
+        dto.setToken(reservation.getToken());
+        dto.setName(reservation.getName());
+        dto.setStudentNumber(reservation.getStudentNumber());
+        dto.setUsed(reservation.isUsed());
+        dto.setMealId(reservation.getMeal().getId());
+        dto.setMealDescription(reservation.getMeal().getDescription());
+        dto.setRestaurantName(reservation.getMeal().getRestaurant().getName());
+        
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{token}")
     public ResponseEntity<?> getReservation(@PathVariable String token) {
-        Optional<Reservation> reservation = reservationService.getReservationByToken(UUID.fromString(token));
-        return reservation.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Reservation> reservationOpt = reservationService.getReservationByToken(UUID.fromString(token));
+        
+        if (reservationOpt.isPresent()) {
+            Reservation reservation = reservationOpt.get();
+            ReservationDTO dto = new ReservationDTO();
+            dto.setToken(reservation.getToken());
+            dto.setName(reservation.getName());
+            dto.setStudentNumber(reservation.getStudentNumber());
+            dto.setUsed(reservation.isUsed());
+            dto.setMealId(reservation.getMeal().getId());
+            dto.setMealDescription(reservation.getMeal().getDescription());
+            dto.setRestaurantName(reservation.getMeal().getRestaurant().getName());
+            
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PostMapping("/{token}/check-in")
+    @PostMapping("/{token}/use")
     public ResponseEntity<?> useReservation(@PathVariable String token) {
         boolean success = reservationService.useReservation(UUID.fromString(token));
-        return ResponseEntity.ok(Map.of("used", success));
+        return ResponseEntity.ok(Map.of("success", success));
     }
 
     @DeleteMapping("/{token}")
     public ResponseEntity<?> cancelReservation(@PathVariable String token) {
         boolean success = reservationService.cancelReservation(UUID.fromString(token));
-        return ResponseEntity.ok(Map.of("cancelled", success));
+        return ResponseEntity.ok(Map.of("success", success));
     }
 }

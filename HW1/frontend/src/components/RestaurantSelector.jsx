@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-function RestaurantSelector({ onSelect }) {
+function RestaurantSelector({ onSelect, apiConfig }) {
     const [restaurants, setRestaurants] = useState([]);
     const [selected, setSelected] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/restaurants")
+        fetch(`${apiConfig?.baseUrl || '/api'}/restaurants`)
             .then((res) => res.json())
             .then((data) => {
                 setRestaurants(data);

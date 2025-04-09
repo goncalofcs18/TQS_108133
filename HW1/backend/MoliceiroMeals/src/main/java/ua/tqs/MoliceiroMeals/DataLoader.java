@@ -3,12 +3,14 @@ package ua.tqs.MoliceiroMeals;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import ua.tqs.MoliceiroMeals.model.*;
 import ua.tqs.MoliceiroMeals.repository.*;
 
 import java.time.LocalDate;
 
 @Configuration
+@Profile("!prod")
 public class DataLoader {
 
     @Bean

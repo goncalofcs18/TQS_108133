@@ -7,15 +7,16 @@ const restaurantLocationMap = {
     4: 'ilhavo'
 };
 
-function MealList({ restaurantId, onSelectMeal }) {
+function MealList({ restaurantId, onSelectMeal, apiConfig }) {
     const [meals, setMeals] = useState([]);
     const [weatherData, setWeatherData] = useState({}); // key: date, value: forecast
+    const baseUrl = apiConfig?.baseUrl || '/api';
 
     useEffect(() => {
         if (!restaurantId) return;
 
         // Buscar refeições
-        fetch(`http://localhost:8080/api/meals/restaurant/${restaurantId}`)
+        fetch(`${baseUrl}/meals/restaurant/${restaurantId}`)
             .then(res => res.json())
             .then(async (mealsFetched) => {
                 setMeals(mealsFetched);
@@ -32,28 +33,54 @@ function MealList({ restaurantId, onSelectMeal }) {
                     const daysAhead = Math.round((mealDate - today) / (1000 * 60 * 60 * 24));
 
                     if (daysAhead >= 0 && !weatherByDate[meal.date]) {
-                        const res = await fetch(`http://localhost:8080/api/weather/${location}?daysAhead=${daysAhead}`);
-                        const data = await res.json();
-                        weatherByDate[meal.date] = data;
+                        try {
+                            console.log(`Fetching weather for ${location}, days ahead: ${daysAhead}, date: ${meal.date}`);
+                            const res = await fetch(`${baseUrl}/weather/${location}?daysAhead=${daysAhead}`);
+                            if (res.ok) {
+                                const data = await res.json();
+                                console.log('Weather data received:', data);
+                                weatherByDate[meal.date] = data;
+                            } else {
+                                console.error('Weather API returned error:', await res.text());
+                            }
+                        } catch (error) {
+                            console.error('Error fetching weather:', error);
+                        }
                     }
                 }
 
+                console.log('All weather data:', weatherByDate);
                 setWeatherData(weatherByDate);
+            })
+            .catch(error => {
+                console.error('Error fetching meals:', error);
             });
-    }, [restaurantId]);
+    }, [restaurantId, baseUrl]);
+
+    const formatDateForApi = (dateString) => {
+        const date = new Date(dateString);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    };
 
     const getWeatherForDate = (date) => {
         const weather = weatherData[date];
-        if (!weather?.daily) return null;
+        if (!weather?.daily) {
+            console.log('No daily weather data found for date:', date);
+            return null;
+        }
 
-        const formatDate = (d) => new Date(d).toISOString().split('T')[0];
-        const formattedDate = formatDate(date);
-        const index = weather.daily.time.findIndex(d => d === formattedDate);
-        if (index === -1) return null;
+        // The API returns exactly one date, so we can use index 0
+        if (weather.daily.time.length === 0 || 
+            !weather.daily.temperature_2m_max || 
+            !weather.daily.temperature_2m_min || 
+            !weather.daily.weathercode) {
+            console.log('Incomplete weather data:', weather);
+            return null;
+        }
 
-        const max = weather.daily.temperature_2m_max?.[index];
-        const min = weather.daily.temperature_2m_min?.[index];
-        const code = parseInt(weather.daily.weathercode?.[index]);
+        const max = weather.daily.temperature_2m_max[0];
+        const min = weather.daily.temperature_2m_min[0];
+        const code = parseInt(weather.daily.weathercode[0]);
 
         let icon = "❓";
 
@@ -70,9 +97,10 @@ function MealList({ restaurantId, onSelectMeal }) {
         return { icon, min, max };
     };
 
-
-
-
+    const formatDisplayDate = (dateString) => {
+        const options = { weekday: 'short', day: 'numeric', month: 'long' };
+        return new Date(dateString).toLocaleDateString('pt-PT', options);
+    };
 
     return (
         <div className="meal-list">
@@ -82,11 +110,11 @@ function MealList({ restaurantId, onSelectMeal }) {
                     const weatherInfo = getWeatherForDate(meal.date);
                     return (
                         <div className="meal-card" key={meal.id}>
-                            <h3>{meal.date}</h3>
+                            <h3>{formatDisplayDate(meal.date)}</h3>
                             <p>{meal.description}</p>
                             {weatherInfo && (
                                 <p className="weather">
-                                    {weatherInfo.icon} {weatherInfo.min}°C - {weatherInfo.max}°C
+                                    {weatherInfo.icon} {weatherInfo.min.toFixed(1)}°C - {weatherInfo.max.toFixed(1)}°C
                                 </p>
                             )}
                             <button onClick={() => onSelectMeal(meal)}>Reservar</button>

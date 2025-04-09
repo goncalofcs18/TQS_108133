@@ -1,6 +1,7 @@
 package ua.tqs.MoliceiroMeals.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,38 +11,66 @@ import ua.tqs.MoliceiroMeals.dto.WeatherForecast;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Service
 public class WeatherService {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    
+    // Use atomic counters for thread safety
+    private final AtomicInteger requestCount = new AtomicInteger(0);
+    private final AtomicInteger cacheHitCount = new AtomicInteger(0);
+    private final AtomicInteger cacheMissCount = new AtomicInteger(0);
+    
+    // Track what requests have been made for cache analysis
+    private final ConcurrentHashMap<String, Boolean> requestCache = new ConcurrentHashMap<>();
 
-    private final Map<String, Integer> hitCount = new ConcurrentHashMap<>();
-    private final Map<String, Integer> missCount = new ConcurrentHashMap<>();
-
+    /**
+     * Get weather forecast for a specific location and date
+     * Utilizes caching for improved performance
+     */
     public WeatherForecast getForecast(String location, LocalDate date) {
+        String cacheKey = location.toLowerCase() + "-" + date;
+        
+        // Track if this request has been made before - used for cache hit/miss stats
+        boolean existsInCache = requestCache.containsKey(cacheKey);
+        
+        // Increment total request count
+        requestCount.incrementAndGet();
+        
+        // Get forecast (potentially from cache due to @Cacheable on internal method)
         WeatherForecast forecast = getForecastInternal(location, date);
-
-        String key = location.toLowerCase() + "-" + date;
-        if (forecast != null) {
-            hitCount.put(key, hitCount.getOrDefault(key, 0) + 1);
+        
+        // Update cache statistics based on whether this was a cache hit or miss
+        if (existsInCache) {
+            // Cache hit - already requested this combination before
+            cacheHitCount.incrementAndGet();
+            log.debug("Cache HIT for {}", cacheKey);
         } else {
-            missCount.put(key, missCount.getOrDefault(key, 0) + 1);
+            // Cache miss - first time requesting this combination
+            cacheMissCount.incrementAndGet();
+            requestCache.put(cacheKey, true);
+            log.debug("Cache MISS for {}", cacheKey);
         }
-
+        
         return forecast;
     }
 
-    @Cacheable(value = "weatherCache", key = "#location + '-' + #date")
-    public WeatherForecast getForecastInternal(String location, LocalDate date) {
-        log.info("Calling weather API for location: {}", location);
+    /**
+     * Internal method for fetching weather forecast
+     * Uses Spring's @Cacheable for automatic caching
+     */
+    @Cacheable(value = "weatherCache", key = "#location.toLowerCase() + '-' + #date")
+    protected WeatherForecast getForecastInternal(String location, LocalDate date) {
+        log.info("Calling weather API for location: {} on date: {}", location, date);
 
         Map<String, double[]> locations = Map.of(
                 "aveiro", new double[]{40.63, -8.65},
                 "agueda", new double[]{40.57, -8.45},
                 "oiro", new double[]{40.75, -8.57},
-                "ilhavo", new double[]{40.40, -8.13}
+                "ilhavo", new double[]{60.40, -3.13}
         );
 
         double[] coords = locations.getOrDefault(location.toLowerCase(), new double[]{40.63, -8.65});
@@ -58,29 +87,40 @@ public class WeatherService {
         try {
             return restTemplate.getForObject(uri, WeatherForecast.class);
         } catch (Exception e) {
-            log.error("Erro ao obter previsão para {}: {}", location, e.getMessage());
+            log.error("Error getting forecast for {}: {}", location, e.getMessage());
             return null;
         }
     }
 
+    /**
+     * Clear the weather cache
+     */
+    @CacheEvict(value = "weatherCache", allEntries = true)
+    public void clearCache() {
+        log.info("Clearing weather cache");
+        requestCache.clear();
+    }
 
+    /**
+     * Get cache statistics
+     */
     public Map<String, Integer> getCacheStats() {
         return Map.of(
-                "requests", getTotalRequests(),
-                "misses", getCacheMisses(),
-                "hits", getCacheHits()
+                "requests", requestCount.get(),
+                "hits", cacheHitCount.get(),
+                "misses", cacheMissCount.get()
         );
     }
 
     public int getTotalRequests() {
-        return hitCount.values().stream().mapToInt(Integer::intValue).sum() + missCount.values().stream().mapToInt(Integer::intValue).sum();
+        return requestCount.get();
     }
 
     public int getCacheHits() {
-        return hitCount.values().stream().mapToInt(Integer::intValue).sum();
+        return cacheHitCount.get();
     }
 
     public int getCacheMisses() {
-        return missCount.values().stream().mapToInt(Integer::intValue).sum();
+        return cacheMissCount.get();
     }
 }

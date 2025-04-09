@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+ 
+  backend:
+    build:
+      context: ./backend/MoliceiroMeals
+      dockerfile: Dockerfile
+    container_name: moliceiroMeals-backend
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+    ports:
+      - "8080:8080"
+    networks:
+      - moliceiroMeals-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: moliceiroMeals-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - moliceiroMeals-network
+
+# Definição de rede
+networks:
+  moliceiroMeals-network:
+    name: moliceiroMeals-network
+    driver: bridge 

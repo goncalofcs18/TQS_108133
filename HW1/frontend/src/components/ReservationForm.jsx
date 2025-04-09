@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-function ReservationForm({ meal, onFinish }) {
+function ReservationForm({ meal, onFinish, apiConfig }) {
     const [name, setName] = useState('');
     const [studentNumber, setStudentNumber] = useState('');
     const [success, setSuccess] = useState(null);
     const [token, setToken] = useState(null);
+    const baseUrl = apiConfig?.baseUrl || '/api';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch("http://localhost:8080/api/reservations", {
+        const res = await fetch(`${baseUrl}/reservations`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, studentNumber, mealId: meal.id })
