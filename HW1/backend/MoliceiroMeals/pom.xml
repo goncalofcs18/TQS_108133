@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> 
 	</parent>
 	<groupId>ua.tqs</groupId>
 	<artifactId>MoliceiroMeals</artifactId>
@@ -33,9 +33,6 @@
 		<rest-assured.version>5.4.0</rest-assured.version>
 		<testcontainers.version>1.19.7</testcontainers.version>
 		<junit-platform.version>1.10.2</junit-platform.version>
-		<sonar.organization>hw1</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.projectKey>goncalofcs18_TQS_108133</sonar.projectKey>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -87,14 +84,14 @@
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 		
-		<!-- Caffeine Cache -->
+		
 		<dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
             <version>3.1.8</version>
         </dependency>
 		
-		<!-- REST Assured for API testing -->
+	
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
@@ -102,7 +99,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- Selenium WebDriver for UI testing -->
+
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -110,7 +107,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- Cucumber for BDD -->
+	
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
@@ -136,7 +133,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- Testcontainers for integration tests -->
+
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>junit-jupiter</artifactId>
@@ -195,11 +192,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.11.0.3922</version>
 			</plugin>
 		</plugins>
 	</build>
