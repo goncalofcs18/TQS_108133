@@ -33,13 +33,6 @@
 		<rest-assured.version>5.4.0</rest-assured.version>
 		<testcontainers.version>1.19.7</testcontainers.version>
 		<junit-platform.version>1.10.2</junit-platform.version>
-		<sonar.organization>tqs-108133</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.projectKey>goncalofcs18_TQS_108133</sonar.projectKey>
-		<sonar.projectName>MoliceiroMeals</sonar.projectName>
-		<sonar.sources>src/main/java</sonar.sources>
-		<sonar.tests>src/test/java</sonar.tests>
-		<sonar.java.binaries>target/classes</sonar.java.binaries>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -199,13 +192,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			
-			<!-- SonarQube Integration -->
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.11.0.3922</version>
 			</plugin>
 		</plugins>
 	</build>
